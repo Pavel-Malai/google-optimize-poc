@@ -9,6 +9,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
 
   private trackingId: string = 'OPT-KQRV7XJ';
+  private googleAnalyticsTrackingId: string = 'G-KP7V7N306D';
   constructor(
     @Inject(DOCUMENT) private doc: Document
   ) {
@@ -16,7 +17,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.addGoogleOptimize(this.trackingId);
-    //this.addGoogleAnalytics(this.trackingId);
+    this.addGoogleAnalytics(this.googleAnalyticsTrackingId);
   }
 
   title = 'google-optimize-poc';

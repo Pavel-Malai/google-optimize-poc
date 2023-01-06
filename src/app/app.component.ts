@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
   }
 
   setCultureCookie(value: string) {
-    this.cookieService.set('_culture', value, undefined, undefined, 'azurestaticapps.net')
+    this.cookieService.set('_culture', value, undefined, undefined, '.azurestaticapps.net')
     this.cookieService.set('_culture', value, undefined, undefined, 'localhost')
   }
 

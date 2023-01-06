@@ -1,13 +1,16 @@
-<div>
-  <h4>Culture</h4>
-  <mat-form-field appearance="fill" form>
-    <mat-label>Select Culture</mat-label>
-    <mat-select [formControl]="culturesFormControl">
-      <mat-option *ngFor="let culture of cultures" [value]="culture.value">
-        {{ culture.name }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+<div class="container">
+    <div>
+        <h4>Culture</h4>
+        <mat-form-field appearance="fill" form>
+          <mat-label>Select Culture</mat-label>
+          <mat-select [formControl]="culturesFormControl">
+            <mat-option *ngFor="let culture of cultures" [value]="culture.value">
+              {{ culture.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 </div>
+
 
 <router-outlet></router-outlet>

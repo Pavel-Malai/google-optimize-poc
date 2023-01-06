@@ -1,5 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
@@ -8,19 +10,39 @@ import { Component, Inject, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
+  title = 'google-optimize-poc';
   private trackingId: string = 'OPT-KQRV7XJ';
   private googleAnalyticsTrackingId: string = 'G-KP7V7N306D';
+
+  culturesFormControl = new FormControl();
+
+  cultures: Culture[] = [
+    { value: 'en-GB', name: 'English' },
+    { value: 'de-DE', name: 'German' }
+  ];
+
   constructor(
-    @Inject(DOCUMENT) private doc: Document
+    @Inject(DOCUMENT) private doc: Document,
+    private cookieService: CookieService
   ) {
   }
 
   ngOnInit(): void {
+    this.culturesFormControl.valueChanges.subscribe(s => {
+      this.setCultureCookie(s);
+      console.log(`The selected value is ${s}`);
+    });
+
+    this.setCultureCookie('en-GB');
+
     this.addGoogleOptimize(this.trackingId);
     this.addGoogleAnalytics(this.googleAnalyticsTrackingId);
   }
 
-  title = 'google-optimize-poc';
+  setCultureCookie(value: string) {
+    this.cookieService.set('_culture', value, undefined, undefined, 'esendex.com')
+    this.cookieService.set('_culture', value, undefined, undefined, 'localhost')
+  }
 
   private addGoogleAnalytics(trackingId: string): void {
     if (trackingId) {
@@ -45,11 +67,16 @@ export class AppComponent implements OnInit {
 
   private addGoogleOptimize(trackingId: string): void {
     if (trackingId) {
-        const gOptimizeConnect: HTMLScriptElement =
-            this.doc.createElement('script');
-        gOptimizeConnect.src = `https://www.googleoptimize.com/optimize.js?id=${trackingId}`;
+      const gOptimizeConnect: HTMLScriptElement =
+        this.doc.createElement('script');
+      gOptimizeConnect.src = `https://www.googleoptimize.com/optimize.js?id=${trackingId}`;
 
-        this.doc.head.appendChild(gOptimizeConnect);
+      this.doc.head.appendChild(gOptimizeConnect);
     }
+  }
 }
+
+interface Culture {
+  value: string;
+  name: string;
 }

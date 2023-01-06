@@ -33,15 +33,18 @@ export class AppComponent implements OnInit {
       console.log(`The selected value is ${s}`);
     });
 
-    this.setCultureCookie('en-GB');
+    if(!this.cookieService.get('_culture')){
+      console.log('Culture nto set. Setting default culture.')
+      this.setCultureCookie('en-GB');
+    }
 
     this.addGoogleOptimize(this.trackingId);
     this.addGoogleAnalytics(this.googleAnalyticsTrackingId);
   }
 
   setCultureCookie(value: string) {
-    this.cookieService.set('_culture', value, undefined, undefined, '.2.azurestaticapps.net')
-    this.cookieService.set('_culture', value, undefined, undefined, 'localhost')
+    this.cookieService.set('_culture', value, undefined, '/', '.2.azurestaticapps.net')
+    this.cookieService.set('_culture', value, undefined, '/', 'localhost')
   }
 
   private addGoogleAnalytics(trackingId: string): void {

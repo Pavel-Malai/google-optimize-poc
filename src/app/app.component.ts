@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.culturesFormControl.valueChanges.subscribe(s => {
       this.setCultureCookie(s);
-      location.reload();
+      //location.reload();
       console.log(`The selected value is ${s}`);
     });
 

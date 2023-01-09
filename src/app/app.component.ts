@@ -30,11 +30,12 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.culturesFormControl.valueChanges.subscribe(s => {
       this.setCultureCookie(s);
+      location.reload();
       console.log(`The selected value is ${s}`);
     });
 
     if(!this.cookieService.get('_culture')){
-      console.log('Culture nto set. Setting default culture.')
+      console.log('Culture not set. Setting default culture.')
       this.setCultureCookie('en-GB');
     }
 

@@ -34,9 +34,12 @@ export class AppComponent implements OnInit {
       console.log(`The selected value is ${s}`);
     });
 
-    if(!this.cookieService.get('_culture')){
-      console.log('Culture not set. Setting default culture.')
+    let currentCulture = this.cookieService.get('_culture')
+    if(!currentCulture){
       this.setCultureCookie('en-GB');
+      this.culturesFormControl.setValue('en-GB');
+    }else{
+      this.culturesFormControl.setValue(currentCulture);
     }
 
     this.addGoogleOptimize(this.trackingId);

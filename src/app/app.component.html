@@ -1,19 +1,29 @@
 <div class="container">
-    <div>
-        <h4>Select Culture</h4>
-        <mat-form-field appearance="fill" form>
-          <mat-label>Select Culture</mat-label>
-          <mat-select [formControl]="culturesFormControl">
-            <mat-option *ngFor="let culture of cultures" [value]="culture.value">
-              {{ culture.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+  <div class="language-content-container">
+    <h4>Select Culture</h4>
+    <mat-form-field appearance="fill" form>
+      <mat-label>Select Culture</mat-label>
+      <mat-select [formControl]="culturesFormControl">
+        <mat-option *ngFor="let culture of cultures" [value]="culture.value">
+          {{ culture.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div id="google-optimize-culture-container"></div>
+  </div>
 
-      <div id="google-optimize-culture-container">
-      </div>
+  <div class="territory-content-container">
+    <h4>Select Territory</h4>
+    <mat-form-field appearance="fill" form>
+      <mat-label>Select Territory</mat-label>
+      <mat-select [formControl]="territoriesFormControl">
+        <mat-option *ngFor="let territory of territories" [value]="territory.value">
+          {{ territory.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div id="google-optimize-territory-container"></div>
+  </div>
 </div>
-
 
 <router-outlet></router-outlet>

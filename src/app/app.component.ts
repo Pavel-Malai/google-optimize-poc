@@ -15,11 +15,18 @@ export class AppComponent implements OnInit {
   private googleAnalyticsTrackingId: string = 'G-KP7V7N306D';
 
   culturesFormControl = new FormControl();
+  territoriesFormControl = new FormControl();
 
   cultures: Culture[] = [
     { value: 'en-GB', name: 'English' },
     { value: 'de-DE', name: 'German' },
     { value: 'es-ES', name: 'Spanish' }
+  ];
+
+  territories: Territory[] = [
+    { value: 'england', name: 'England' },
+    { value: 'germany', name: 'Germany' },
+    { value: 'spain', name: 'Spain' }
   ];
 
   constructor(
@@ -36,20 +43,37 @@ export class AppComponent implements OnInit {
     });
 
     let currentCulture = this.cookieService.get('_culture')
-    if(!currentCulture){
+    if (!currentCulture) {
       this.setCultureCookie('en-GB');
       this.culturesFormControl.setValue('en-GB');
-    }else{
+    } else {
       this.culturesFormControl.setValue(currentCulture);
     }
 
     this.addGoogleOptimize(this.trackingId);
     this.addGoogleAnalytics(this.googleAnalyticsTrackingId);
+
+    //this.setGlobalVariable('england');
   }
 
   setCultureCookie(value: string) {
     this.cookieService.set('_culture', value, undefined, '/', '.2.azurestaticapps.net')
     this.cookieService.set('_culture', value, undefined, '/', 'localhost')
+  }
+
+  private createGlobalVariable(teritory: string): HTMLScriptElement {
+    const cultureVariable: HTMLScriptElement = this.doc.createElement('script');
+    cultureVariable.type = 'text/javascript';
+    cultureVariable.text = `
+        window.customer_territory = ${teritory}
+    `;
+
+    // const gOptimizeConnect: HTMLScriptElement = this.doc.createElement('script');
+    // gOptimizeConnect.src = `https://www.googleoptimize.com/optimize.js?id=${this.trackingId}`;
+
+    // this.doc.head.appendChild(cultureVariable);
+    // this.doc.head.appendChild(gOptimizeConnect);
+    return cultureVariable;
   }
 
   private addGoogleAnalytics(trackingId: string): void {
@@ -79,12 +103,18 @@ export class AppComponent implements OnInit {
         this.doc.createElement('script');
       gOptimizeConnect.src = `https://www.googleoptimize.com/optimize.js?id=${trackingId}`;
 
+      this.doc.head.appendChild(this.createGlobalVariable('england'));
       this.doc.head.appendChild(gOptimizeConnect);
     }
   }
 }
 
 interface Culture {
+  value: string;
+  name: string;
+}
+
+interface Territory {
   value: string;
   name: string;
 }

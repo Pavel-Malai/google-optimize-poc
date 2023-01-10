@@ -18,7 +18,8 @@ export class AppComponent implements OnInit {
 
   cultures: Culture[] = [
     { value: 'en-GB', name: 'English' },
-    { value: 'de-DE', name: 'German' }
+    { value: 'de-DE', name: 'German' },
+    { value: 'es-ES', name: 'Spanish' }
   ];
 
   constructor(

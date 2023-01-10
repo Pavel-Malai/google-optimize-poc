@@ -46,7 +46,8 @@ export class AppComponent implements OnInit {
 
     this.territoriesFormControl.valueChanges.subscribe(s => {
       this.customer_territory = s;
-      location.reload();
+      window.customer_territory = s;
+      //location.reload();
     });
 
     let currentCulture = this.cookieService.get('_culture')
@@ -132,4 +133,8 @@ interface Culture {
 interface Territory {
   value: string;
   name: string;
+}
+
+declare global {
+  interface Window { customer_territory: string; }
 }

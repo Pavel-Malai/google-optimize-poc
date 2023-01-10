@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
 
     if (!this.customer_territory) {
       this.customer_territory = this.territories[1].value;
-      //this.territoriesFormControl.setValue(this.territories[0].value);
+      this.territoriesFormControl.setValue(this.territories[0].value);
     }
 
     this.addGoogleOptimize(this.trackingId);

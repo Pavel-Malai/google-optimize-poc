@@ -24,10 +24,12 @@ export class AppComponent implements OnInit {
   ];
 
   territories: Territory[] = [
-    { value: 'england', name: 'England' },
+    { value: 'gb', name: 'Great Britain' },
     { value: 'germany', name: 'Germany' },
     { value: 'spain', name: 'Spain' }
   ];
+
+  customer_territory: string = '';
 
   constructor(
     @Inject(DOCUMENT) private doc: Document,
@@ -42,6 +44,11 @@ export class AppComponent implements OnInit {
       console.log(`The selected value is ${s}`);
     });
 
+    this.territoriesFormControl.valueChanges.subscribe(s => {
+      this.customer_territory = s;
+      location.reload();
+    });
+
     let currentCulture = this.cookieService.get('_culture')
     if (!currentCulture) {
       this.setCultureCookie('en-GB');
@@ -50,10 +57,13 @@ export class AppComponent implements OnInit {
       this.culturesFormControl.setValue(currentCulture);
     }
 
+    if (!this.customer_territory) {
+      this.customer_territory = this.territories[1].value;
+      //this.territoriesFormControl.setValue(this.territories[0].value);
+    }
+
     this.addGoogleOptimize(this.trackingId);
     this.addGoogleAnalytics(this.googleAnalyticsTrackingId);
-
-    //this.setGlobalVariable('england');
   }
 
   setCultureCookie(value: string) {
@@ -68,7 +78,7 @@ export class AppComponent implements OnInit {
     //     window.customer_territory = ${teritory}
     // `;
 
-        cultureVariable.text = `
+    cultureVariable.text = `
         var customer_territory = \'${teritory}\';
     `;
 
@@ -102,12 +112,13 @@ export class AppComponent implements OnInit {
   }
 
   private addGoogleOptimize(trackingId: string): void {
+    console.log('addGoogleOptimize')
     if (trackingId) {
       const gOptimizeConnect: HTMLScriptElement =
         this.doc.createElement('script');
       gOptimizeConnect.src = `https://www.googleoptimize.com/optimize.js?id=${trackingId}`;
 
-      this.doc.head.appendChild(this.createCustomerTerritoryGlobalVariable('england'));
+      this.doc.head.appendChild(this.createCustomerTerritoryGlobalVariable(this.customer_territory));
       this.doc.head.appendChild(gOptimizeConnect);
     }
   }

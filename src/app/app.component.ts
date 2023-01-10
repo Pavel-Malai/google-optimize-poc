@@ -61,11 +61,15 @@ export class AppComponent implements OnInit {
     this.cookieService.set('_culture', value, undefined, '/', 'localhost')
   }
 
-  private createGlobalVariable(teritory: string): HTMLScriptElement {
+  private createCustomerTerritoryGlobalVariable(teritory: string): HTMLScriptElement {
     const cultureVariable: HTMLScriptElement = this.doc.createElement('script');
     cultureVariable.type = 'text/javascript';
-    cultureVariable.text = `
-        window.customer_territory = ${teritory}
+    // cultureVariable.text = `
+    //     window.customer_territory = ${teritory}
+    // `;
+
+        cultureVariable.text = `
+        var customer_territory = \'${teritory}\';
     `;
 
     // const gOptimizeConnect: HTMLScriptElement = this.doc.createElement('script');
@@ -103,7 +107,7 @@ export class AppComponent implements OnInit {
         this.doc.createElement('script');
       gOptimizeConnect.src = `https://www.googleoptimize.com/optimize.js?id=${trackingId}`;
 
-      this.doc.head.appendChild(this.createGlobalVariable('england'));
+      this.doc.head.appendChild(this.createCustomerTerritoryGlobalVariable('england'));
       this.doc.head.appendChild(gOptimizeConnect);
     }
   }

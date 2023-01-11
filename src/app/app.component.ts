@@ -79,8 +79,6 @@ export class AppComponent implements OnInit {
 
     cultureVariable.text = `
         var customer_territory = \'${teritory}\';
-        dataLayer.push({'test2': 'test2'});
-
     `;
 
     return cultureVariable;
@@ -100,6 +98,7 @@ export class AppComponent implements OnInit {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);
               dataLayer.push({'test': 'test'});
+              dataLayer.push({'test': 'test2'});
             }
             gtag('js', new Date());
         `;

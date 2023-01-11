@@ -98,7 +98,7 @@ export class AppComponent implements OnInit {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);
               dataLayer.push({'test': 'test'});
-              dataLayer.test = 'test2'
+              dataLayer.['test'] = 'test2'
             }
             gtag('js', new Date());
         `;

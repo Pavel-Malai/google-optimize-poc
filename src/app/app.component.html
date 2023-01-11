@@ -2,7 +2,7 @@
   <div class="language-content-container">
     <h4>Select Culture</h4>
     <mat-form-field appearance="fill" form>
-      <mat-label>Select Culture</mat-label>
+      <mat-label>Select Culture (Cookie based)</mat-label>
       <mat-select [formControl]="culturesFormControl">
         <mat-option *ngFor="let culture of cultures" [value]="culture.value">
           {{ culture.name }}
@@ -15,7 +15,7 @@
   <div class="territory-content-container">
     <h4>Select Territory</h4>
     <mat-form-field appearance="fill" form>
-      <mat-label>Select Territory</mat-label>
+      <mat-label>Select Territory (JS variable based)</mat-label>
       <mat-select [formControl]="territoriesFormControl">
         <mat-option *ngFor="let territory of territories" [value]="territory.value">
           {{ territory.name }}

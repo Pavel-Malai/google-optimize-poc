@@ -38,29 +38,26 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.culturesFormControl.valueChanges.subscribe(s => {
       this.setCultureCookie(s);
-      //location.reload();
       console.log(`The selected value is ${s}`);
     });
 
     this.territoriesFormControl.valueChanges.subscribe(s => {
       this.customer_territory = s;
       window.customer_territory = s;
-      //location.reload();
     });
 
     let currentCulture = this.cookieService.get('_culture')
     if (!currentCulture) {
-      this.setCultureCookie('en-GB');
+      //this.setCultureCookie('en-GB');
       this.culturesFormControl.setValue('en-GB');
     } else {
       this.culturesFormControl.setValue(currentCulture);
     }
 
     if (!this.customer_territory) {
-      this.customer_territory = this.territories[1].value;
+      this.customer_territory = this.territories[0].value;
       this.territoriesFormControl.setValue(this.territories[0].value);
     }
 
@@ -97,8 +94,6 @@ export class AppComponent implements OnInit {
       runGoogleAnalytics.text = `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);
-              dataLayer.push({'test': 'test'});
-              dataLayer['test'] = 'test2'
             }
             gtag('js', new Date());
         `;

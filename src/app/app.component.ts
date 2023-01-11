@@ -38,6 +38,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    window.datalayer.test = 'test';
+
+
     this.culturesFormControl.valueChanges.subscribe(s => {
       this.setCultureCookie(s);
       //location.reload();
@@ -75,19 +79,11 @@ export class AppComponent implements OnInit {
   private createCustomerTerritoryGlobalVariable(teritory: string): HTMLScriptElement {
     const cultureVariable: HTMLScriptElement = this.doc.createElement('script');
     cultureVariable.type = 'text/javascript';
-    // cultureVariable.text = `
-    //     window.customer_territory = ${teritory}
-    // `;
 
     cultureVariable.text = `
         var customer_territory = \'${teritory}\';
     `;
 
-    // const gOptimizeConnect: HTMLScriptElement = this.doc.createElement('script');
-    // gOptimizeConnect.src = `https://www.googleoptimize.com/optimize.js?id=${this.trackingId}`;
-
-    // this.doc.head.appendChild(cultureVariable);
-    // this.doc.head.appendChild(gOptimizeConnect);
     return cultureVariable;
   }
 
@@ -103,7 +99,9 @@ export class AppComponent implements OnInit {
       runGoogleAnalytics.type = 'text/javascript';
       runGoogleAnalytics.text = `
             window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
+            function gtag(){dataLayer.push(arguments);
+              dataLayer.push({'test': 'test'});
+            }
             gtag('js', new Date());
         `;
 
@@ -113,7 +111,6 @@ export class AppComponent implements OnInit {
   }
 
   private addGoogleOptimize(trackingId: string): void {
-    console.log('addGoogleOptimize')
     if (trackingId) {
       const gOptimizeConnect: HTMLScriptElement =
         this.doc.createElement('script');
@@ -136,5 +133,5 @@ interface Territory {
 }
 
 declare global {
-  interface Window { customer_territory: string; }
+  interface Window { customer_territory: string; datalayer:any}
 }

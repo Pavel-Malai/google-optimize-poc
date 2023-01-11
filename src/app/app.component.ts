@@ -39,9 +39,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
 
-    window.datalayer.test = 'test';
-
-
     this.culturesFormControl.valueChanges.subscribe(s => {
       this.setCultureCookie(s);
       //location.reload();
@@ -82,6 +79,8 @@ export class AppComponent implements OnInit {
 
     cultureVariable.text = `
         var customer_territory = \'${teritory}\';
+        dataLayer.push({'test2': 'test2'});
+
     `;
 
     return cultureVariable;

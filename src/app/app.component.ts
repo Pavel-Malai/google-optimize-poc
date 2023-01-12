@@ -50,8 +50,8 @@ export class AppComponent implements OnInit {
 
     let currentCulture = this.cookieService.get('_culture')
     if (!currentCulture) {
-      //this.setCultureCookie('en-GB');
-      this.culturesFormControl.setValue('en-GB');
+      this.setCultureCookie(this.cultures[0].value);
+      this.culturesFormControl.setValue(this.cultures[0].value);
     } else {
       this.culturesFormControl.setValue(currentCulture);
     }
@@ -126,5 +126,5 @@ interface Territory {
 }
 
 declare global {
-  interface Window { customer_territory: string; datalayer:any}
+  interface Window { customer_territory: string; }
 }

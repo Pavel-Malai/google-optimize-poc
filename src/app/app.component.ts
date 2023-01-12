@@ -71,7 +71,7 @@ export class AppComponent implements OnInit {
     var expiration = new Date();
     expiration.setFullYear(date.getFullYear() + 1);
 
-    this.cookieService.set('_culture', value, expiration.getTime(), '/', '.2.azurestaticapps.net', true, )
+    //this.cookieService.set('_culture', value, expiration.getTime(), '/', '.2.azurestaticapps.net', true, )
     this.cookieService.set('_culture', value, expiration.getTime(), '/', '.witty-forest-0b0445210.2.azurestaticapps.net', true)
     this.cookieService.set('_culture', value, expiration.getTime(), '/', 'localhost')
   }

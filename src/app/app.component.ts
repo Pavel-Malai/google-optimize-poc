@@ -66,10 +66,14 @@ export class AppComponent implements OnInit {
   }
 
   setCultureCookie(value: string) {
-    console.log('setting culture ' + value)
-    this.cookieService.set('_culture', value, undefined, '/', '.2.azurestaticapps.net', true)
-    this.cookieService.set('_culture', value, undefined, '/', '.witty-forest-0b0445210.2.azurestaticapps.net')
-    this.cookieService.set('_culture', value, undefined, '/', 'localhost')
+    
+    var date = new Date("2014-10-29"); 
+    var expiration = new Date();
+    expiration.setFullYear(date.getFullYear() + 1);
+
+    this.cookieService.set('_culture', value, expiration.getTime(), '/', '.2.azurestaticapps.net', true, )
+    this.cookieService.set('_culture', value, expiration.getTime(), '/', '.witty-forest-0b0445210.2.azurestaticapps.net', true)
+    this.cookieService.set('_culture', value, expiration.getTime(), '/', 'localhost')
   }
 
   private createCustomerTerritoryGlobalVariable(teritory: string): HTMLScriptElement {
